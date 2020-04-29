@@ -10,6 +10,8 @@ import './index.scss'
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
+store.subscribe(() => console.log(store.getState()))
+
 render(
   <React.StrictMode>
     <Provider store={store}>
