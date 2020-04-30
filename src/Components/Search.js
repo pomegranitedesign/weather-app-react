@@ -35,7 +35,7 @@ const Search = ({
           </>
         )}
 
-        <Buttons>
+        {/* <Buttons>
           <span>Search By: </span>
           <Button
             isActive={searchBy === 'city'}
@@ -49,7 +49,7 @@ const Search = ({
           >
             Country
           </Button>
-        </Buttons>
+        </Buttons> */}
 
         <Button
           isActive
@@ -65,14 +65,15 @@ const Search = ({
 }
 
 const Label = styled.label`
-  font-size: 20px;
+  font-size: 16px;
   margin-bottom: 10px;
   display: block;
-  font-weight: 500;
+  font-weight: 300;
 `
 
 const Input = styled.input`
   width: 100%;
+  padding-left: 5px;
 `
 
 const Buttons = styled.div`
@@ -87,7 +88,7 @@ const Button = styled.button`
   padding: 10px;
   border: none;
   border-radius: 3px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   width: 100px;
   cursor: pointer;
   transition: all 300ms cubic-bezier(0.075, 0.82, 0.165, 1);

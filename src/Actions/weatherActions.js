@@ -14,6 +14,10 @@ export const fetchWeather = (city = '') => async (dispatch) => {
 
   if (res.status === 200)
     dispatch({ type: FETCH_WEATHER_SUCCESS, weatherData: res.data })
-  else if (res.status === 500 || res.status === 404)
-    dispatch({ type: FETCH_WEATHER_FAILURE, error: res.statusText })
+
+  if (res.status === 404)
+    dispatch({
+      type: FETCH_WEATHER_FAILURE,
+      error: `City ${city} is not found`,
+    })
 }

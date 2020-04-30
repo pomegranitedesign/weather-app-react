@@ -20,7 +20,9 @@ export default (state = _initialState, action) => {
       return {
         ...state,
         isWeatherFetching: false,
-        weatherData: action.weatherData,
+        weatherData: state.weatherData.includes(action.weatherData.name)
+          ? [...state.weatherData]
+          : [...state.weatherData, action.weatherData],
       }
 
     case FETCH_WEATHER_STARTED:

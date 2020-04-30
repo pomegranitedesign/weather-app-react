@@ -33,9 +33,13 @@ const App = ({ weather, fetchWeather }) => {
 
       {weather.isWeatherFetching ? (
         <ReactLoading color="#000000" type="spin" />
-      ) : (
-        <WeatherData />
-      )}
+      ) : null}
+
+      {weather.error && <h1>{weather.error}</h1>}
+
+      {weather.weatherData.length >= 1 ? (
+        <WeatherData data={weather.weatherData} />
+      ) : null}
     </div>
   )
 }
