@@ -12,16 +12,13 @@ import './index.scss'
 const persistedState = loadState()
 const store = createStore(rootReducer, persistedState, applyMiddleware(thunk))
 
-store.subscribe(() => {
-  saveState(store.getState())
-  console.log(store.getState())
-})
+store.subscribe(() => saveState(store.getState()))
 
 render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById('root')
 )

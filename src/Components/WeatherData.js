@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import { FaTrashAlt } from 'react-icons/fa'
 
 import Container from './Container'
 
-const WeatherData = ({ data = [] }) => {
+const WeatherData = ({ data = [], removeCity = () => {} }) => {
 	const sortedData = data.sort((a, b) => (a.name > b.name ? 1 : -1))
 
 	console.log(navigator.permissions.query({ name: 'geolocation' }))
@@ -30,6 +31,7 @@ const WeatherData = ({ data = [] }) => {
 						<Title>
 							Wind Angle: <b>{piece.wind.deg}</b>
 						</Title>
+						<FaTrashAltStyled title="Delete" size={20} onClick={() => removeCity(piece.name)} />
 						<hr style={{ marginTop: 20, marginBottom: 10 }} />
 					</DataWrapper>
 				))}
@@ -38,9 +40,12 @@ const WeatherData = ({ data = [] }) => {
 	)
 }
 
-const Wrapper = styled.div``
+const FaTrashAltStyled = styled(FaTrashAlt)`
+	margin-top: 10px;
+	cursor: pointer;
+`
 
-const List = styled.ul``
+const Wrapper = styled.div``
 
 const DataWrapper = styled.div`margin-bottom: 20px;`
 

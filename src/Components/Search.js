@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Container from './Container'
 
-const Search = ({ search, searchBy, handleSetSearchBy, handleSubmit, setSearch }) => {
+const Search = ({ search, searchBy, handlehandleSearchBy, handleSubmit, handleSearch }) => {
 	return (
 		<Container>
 			<form onSubmit={handleSubmit}>
@@ -14,7 +14,7 @@ const Search = ({ search, searchBy, handleSetSearchBy, handleSubmit, setSearch }
 							value={search}
 							type="text"
 							placeholder="Toronto"
-							onChange={(event) => setSearch(event.target.value)}
+							onChange={(event) => handleSearch(event.target.value)}
 						/>
 					</Fragment>
 				) : (
@@ -24,7 +24,7 @@ const Search = ({ search, searchBy, handleSetSearchBy, handleSubmit, setSearch }
 							value={search}
 							type="text"
 							placeholder="Canada"
-							onChange={(event) => setSearch(event.target.value)}
+							onChange={(event) => handleSearch(event.target.value)}
 						/>
 					</Fragment>
 				)}
@@ -33,13 +33,13 @@ const Search = ({ search, searchBy, handleSetSearchBy, handleSubmit, setSearch }
           <span>Search By: </span>
           <Button
             isActive={searchBy === 'city'}
-            onClick={() => handleSetSearchBy('city')}
+            onClick={() => handlehandleSearchBy('city')}
           >
             City
           </Button>
           <Button
             isActive={searchBy === 'country'}
-            onClick={() => handleSetSearchBy('country')}
+            onClick={() => handlehandleSearchBy('country')}
           >
             Country
           </Button>
