@@ -1,50 +1,57 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import ReactLoading from 'react-loading'
+import { notification } from 'antd'
+import 'antd/dist/antd.css'
 
-import Header from './Components/Header'
-import Search from './Components/Search'
-import WeatherData from './Components/WeatherData'
-import Error from './Components/Error'
-import { fetchWeather, removeCity } from './Actions/weatherActions'
+import { Container, Header, Search, WeatherData } from './Components'
+import { fetchWeather, removeCity, setSearch } from './Actions/weatherActions'
 
-const App = ({ weather, fetchWeather, removeCity }) => {
-	const [ search, setSearch ] = useState('')
-	const [ searchBy, setSearchBy ] = useState('city')
-
-	const handleSearch = (newSearch) => setSearch(newSearch)
-	const handleSetSearchBy = (searchBy) => setSearchBy(searchBy)
-
-	const handleSubmit = (event) => {
-		event.preventDefault()
-		fetchWeather(search)
-		setSearch('')
-	}
-
+const App = ({ weather, fetchWeather, removeCity, setSearch }) => {
 	return (
 		<div>
 			<Header />
 			<Search
-				search={search}
-				searchBy={searchBy}
-				handleSetSearchBy={handleSetSearchBy}
-				handleSubmit={handleSubmit}
-				handleSearch={handleSearch}
+				search={weather.search}
+				fetchWeather={fetchWeather}
+				setSearch={setSearch}
 			/>
 
-			{weather.isWeatherFetching ? (
-				<ReactLoading style={{ margin: '20px auto', width: '200px' }} color="#000000" type="spin" />
-			) : null}
+			{weather.isWeatherFetching && (
+				<ReactLoading
+					style={{ margin: '20px auto', width: '200px' }}
+					color="#000000"
+					type="spin"
+				/>
+			)}
 
-			{weather.errorShown ? <Error text={weather.error} /> : null}
+			{weather.error &&
+				notification.open({
+					message: weather.error,
+					type: 'error',
+					placement: 'topRight'
+				})}
 
-			{weather.weatherData.length >= 1 ? (
-				<WeatherData data={weather.weatherData} removeCity={removeCity} />
-			) : null}
+			{weather.weatherData.length > 0 ? (
+				<WeatherData
+					data={weather.weatherData}
+					removeCity={removeCity}
+				/>
+			) : (
+				<Container>
+					<h1 style={{ fontWeight: '900' }}>
+						Please Enter a weather name
+					</h1>
+				</Container>
+			)}
 		</div>
 	)
 }
 
 const mapStateToProps = ({ weather }) => ({ weather })
 
-export default connect(mapStateToProps, { fetchWeather, removeCity })(App)
+export default connect(mapStateToProps, {
+	fetchWeather,
+	removeCity,
+	setSearch
+})(App)

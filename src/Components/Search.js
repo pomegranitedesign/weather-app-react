@@ -3,32 +3,24 @@ import styled from 'styled-components'
 
 import Container from './Container'
 
-const Search = ({ search, searchBy, handlehandleSearchBy, handleSubmit, handleSearch }) => {
+const Search = ({ search, fetchWeather, setSearch }) => {
+	const handleSubmit = (event) => {
+		event.preventDefault()
+		fetchWeather(search)
+		setSearch('')
+	}
+
 	return (
 		<Container>
 			<form onSubmit={handleSubmit}>
-				{searchBy === 'city' ? (
-					<Fragment>
-						<Label>City</Label>
-						<Input
-							value={search}
-							type="text"
-							placeholder="Toronto"
-							onChange={(event) => handleSearch(event.target.value)}
-						/>
-					</Fragment>
-				) : (
-					<Fragment>
-						<Label>Country</Label>
-						<Input
-							value={search}
-							type="text"
-							placeholder="Canada"
-							onChange={(event) => handleSearch(event.target.value)}
-						/>
-					</Fragment>
-				)}
-
+				<Label>City</Label>
+				<Input
+					autoFocus
+					value={search}
+					type="text"
+					placeholder="Toronto"
+					onChange={(event) => setSearch(event.target.value)}
+				/>
 				{/* <Buttons>
           <span>Search By: </span>
           <Button
@@ -44,12 +36,15 @@ const Search = ({ search, searchBy, handlehandleSearchBy, handleSubmit, handleSe
             Country
           </Button>
         </Buttons> */}
-
 				<Button
 					isActive
-					style={{ backgroundColor: '#2ed573', width: '100%', marginTop: 20 }}
+					style={{
+						backgroundColor: '#2ed573',
+						width: '100%',
+						marginTop: 20
+					}}
 					onClick={handleSubmit}
-					disabled={search.length < 2}
+					// disabled={search.length < 2}
 				>
 					Search
 				</Button>
@@ -73,10 +68,10 @@ const Input = styled.input`
 	font-size: 14px;
 `
 
-const Buttons = styled.div`
-	margin-top: 10px;
-	float: right;
-`
+// const Buttons = styled.div`
+// 	margin-top: 10px;
+// 	float: right;
+// `
 
 const Button = styled.button`
 	outline: none;
